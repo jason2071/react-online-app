@@ -32,7 +32,9 @@ const UploadPage = () => {
         picture: base64Image,
       });
       // TODO: Upload success
-      console.log(resp);
+      //   console.log(resp);
+      alert(resp.data.data.message);
+      history.replace("/");
     } catch (error) {}
   }
 
