@@ -6,6 +6,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { BASE_URL, headers } from "../../constants";
 import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please choose a name."),
@@ -13,6 +14,7 @@ const schema = yup.object().shape({
 
 function CreatePage() {
   const history = useHistory();
+  const { addToast } = useToasts();
 
   const {
     register,
@@ -26,9 +28,11 @@ function CreatePage() {
     try {
       const url = BASE_URL + "/category";
       const resp = await axios.post(url, data, headers);
-      alert(resp.data.message);
+      addToast(resp.data.message, { appearance: "success" });
       history.replace("/category");
-    } catch (error) {}
+    } catch (error) {
+      addToast(error.message, { appearance: "error" });
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastProvider } from "react-toast-notifications";
 
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
@@ -36,38 +36,40 @@ function categoryRouteForm({ match: { url } }) {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <NavBar />
+    <ToastProvider autoDismiss autoDismissTimeout={6000}>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <NavBar />
 
-        <Switch>
-          <Route path="/about">
-            <AboutPage />
-          </Route>
-          <Route path="/user">
-            <UserPage />
-          </Route>
-          <Route path="/product">
-            <ProductPage />
-          </Route>
-          <Route path="/detail/:id/title/:title">
-            <DetailPage />
-          </Route>
-          <Route path="/hospital">
-            <HospitalPage />
-          </Route>
-          <Route path="/upload">
-            <UploadPage />
-          </Route>
-          <Route path="/category" render={categoryRouteForm} />
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-        </Switch>
+          <Switch>
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route path="/user">
+              <UserPage />
+            </Route>
+            <Route path="/product">
+              <ProductPage />
+            </Route>
+            <Route path="/detail/:id/title/:title">
+              <DetailPage />
+            </Route>
+            <Route path="/hospital">
+              <HospitalPage />
+            </Route>
+            <Route path="/upload">
+              <UploadPage />
+            </Route>
+            <Route path="/category" render={categoryRouteForm} />
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+          </Switch>
 
-        <Footer />
-      </Router>
-    </QueryClientProvider>
+          <Footer />
+        </Router>
+      </QueryClientProvider>
+    </ToastProvider>
   );
 }
 
