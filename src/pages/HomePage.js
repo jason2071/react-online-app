@@ -7,7 +7,7 @@ import axios, { CancelToken } from "axios";
 import { BASE_URL } from "../constants";
 
 function HomePage() {
-  const { isLoading, error, data, isFetching } = useQuery("getData", _getData);
+  const { isLoading, error, data } = useQuery("getData", _getData);
 
   async function _getData() {
     const source = CancelToken.source();

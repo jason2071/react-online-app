@@ -12,23 +12,57 @@ import ProductPage from "./pages/ProductPage";
 import DetailPage from "./pages/DetailPage";
 import HospitalPage from "./pages/hospital/HospitalPage";
 import CategoryPage from "./pages/category/CategoryPage";
+import CreatePage from "./pages/category/CreatePage";
+import EditPage from "./pages/category/EditPage";
+import UploadPage from "./UploadPage";
 
 const queryClient = new QueryClient();
+
+function categoryRouteForm({ match: { url } }) {
+  return (
+    <>
+      <Route path={`${url}/`} exact>
+        <CategoryPage />
+      </Route>
+      <Route path={`${url}/create`}>
+        <CreatePage />
+      </Route>
+      <Route path={`${url}/edit/:id`}>
+        <EditPage />
+      </Route>
+    </>
+  );
+}
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
         <NavBar />
-        
+
         <Switch>
-          <Route path="/about"><AboutPage /></Route>
-          <Route path="/user"><UserPage /></Route>
-          <Route path="/product"><ProductPage /></Route>
-          <Route path="/detail/:id/title/:title"><DetailPage /></Route>
-          <Route path="/hospital"><HospitalPage /> </Route>
-          <Route path="/category"><CategoryPage /></Route>
-          <Route exact path="/"> <HomePage /></Route>
+          <Route path="/about">
+            <AboutPage />
+          </Route>
+          <Route path="/user">
+            <UserPage />
+          </Route>
+          <Route path="/product">
+            <ProductPage />
+          </Route>
+          <Route path="/detail/:id/title/:title">
+            <DetailPage />
+          </Route>
+          <Route path="/hospital">
+            <HospitalPage />
+          </Route>
+          <Route path="/upload">
+            <UploadPage />
+          </Route>
+          <Route path="/category" render={categoryRouteForm} />
+          <Route exact path="/">
+            <HomePage />
+          </Route>
         </Switch>
 
         <Footer />
