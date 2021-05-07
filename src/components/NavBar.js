@@ -31,38 +31,17 @@ function NavBar() {
 
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <NavLink className="nav-link" to="/" exact>
-            Home
-          </NavLink>
+        
+          <NavLink className="nav-link" to="/" exact>Home</NavLink>
+          <NavLink className="nav-link" to="/product">Product</NavLink>
+          <NavLink className="nav-link" to="/about"> About</NavLink>
 
-          <NavLink className="nav-link" to="/product">
-            Product
-          </NavLink>
-
-          <NavLink className="nav-link" to="/about">
-            About
-          </NavLink>
-
-          <NavDropdown
-            title="Workshop (Pagination + CRUD)"
-            id="basic-nav-dropdown"
-          >
-            <NavDropdown.Item
-              onClick={() => {
-                history.replace("/hospital");
-              }}
-            >
-              Hospitals (Pagination)
-            </NavDropdown.Item>
+          <NavDropdown title="Workshop (Pagination + CRUD)" id="basic-nav-dropdown">
+            <NavDropdown.Item onClick={() => history.replace("/hospital")}>Hospitals (Pagination)</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item
-              onClick={() => {
-                history.replace("/category");
-              }}
-            >
-              News Category (CRUD)
-            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => history.replace("/category")}>News Category (CRUD)</NavDropdown.Item>
           </NavDropdown>
+
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />

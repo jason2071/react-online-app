@@ -20,28 +20,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <NavBar />
+        
         <Switch>
-          <Route path="/about">
-            <AboutPage />
-          </Route>
-          <Route path="/user">
-            <UserPage />
-          </Route>
-          <Route path="/product">
-            <ProductPage />
-          </Route>
-          <Route path="/detail/:id/title/:title">
-            <DetailPage />
-          </Route>
-          <Route path="/hospital">
-            <HospitalPage />
-          </Route>
-          <Route path="/category">
-            <CategoryPage />
-          </Route>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
+          <Route path="/about"><AboutPage /></Route>
+          <Route path="/user"><UserPage /></Route>
+          <Route path="/product"><ProductPage /></Route>
+          <Route path="/detail/:id/title/:title"><DetailPage /></Route>
+          <Route path="/hospital"><HospitalPage /> </Route>
+          <Route path="/category"><CategoryPage /></Route>
+          <Route exact path="/"> <HomePage /></Route>
         </Switch>
 
         <Footer />

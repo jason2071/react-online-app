@@ -7,17 +7,16 @@ import axios, { CancelToken } from "axios";
 import { BASE_URL } from "../constants";
 
 function HomePage() {
-  const { isLoading, error, data } = useQuery("getData", async () => {
-    const source = CancelToken.source();
+  const { isLoading, error, data, isFetching } = useQuery("getData", _getData);
 
+  async function _getData() {
+    const source = CancelToken.source();
     const resp = await axios.get(BASE_URL + "/news?page=1", {
       cancelToken: source.token,
     });
-
     resp.cancel = () => source.cancel();
-
     return resp;
-  });
+  }
 
   if (isLoading) {
     return (
@@ -80,6 +79,8 @@ function HomePage() {
       </div>
 
       <div className="container">
+        {/* {isFetching && "Loading..."} */}
+
         <div className="row">{data.data.data.map(renderItem)}</div>
         <hr />
       </div>
