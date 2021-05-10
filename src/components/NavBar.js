@@ -1,10 +1,9 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom";
-
 import logo from "../assets/logo.svg";
 
-function NavBar() {
+function NavBar(props) {
   const history = useHistory();
 
   const [profile, setProfile] = React.useState(null);
@@ -23,7 +22,8 @@ function NavBar() {
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("profile");
-    history.replace("/");
+    // props.saveToken(null);
+    // props.saveProfile(null);
     history.go(0);
   }
 

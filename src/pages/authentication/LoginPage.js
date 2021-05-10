@@ -7,6 +7,7 @@ import axios from "axios";
 import { BASE_URL, headers } from "../../constants";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -18,7 +19,7 @@ const schema = yup.object().shape({
     .min(3, "Password 3 or more characters"),
 });
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const history = useHistory();
   const { addToast } = useToasts();
 
@@ -35,6 +36,9 @@ const LoginPage = () => {
       const url = BASE_URL + "/login";
       const resp = await axios.post(url, data, headers);
       localStorage.setItem("token", JSON.stringify(resp.data));
+
+      // props.saveToken(resp);
+
       getProfile(resp.data);
     } catch (error) {
       addToast(error.response.data.message, { appearance: "error" });
@@ -47,9 +51,11 @@ const LoginPage = () => {
       const url = BASE_URL + "/profile";
       const resp = await axios.get(url, headers);
       localStorage.setItem("profile", JSON.stringify(resp.data.data.user));
+
+      // props.saveProfile(resp.data.data.user);
+
       addToast("เข้าสู่ระบบเรียบร้อย", { appearance: "success" });
       history.replace("/");
-      history.go(0);
     } catch (error) {
       addToast(error.response.data.message, { appearance: "error" });
     }
