@@ -1,11 +1,31 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom";
 
 import logo from "../assets/logo.svg";
 
 function NavBar() {
   const history = useHistory();
+
+  const [profile, setProfile] = React.useState(null);
+
+  React.useEffect(() => {
+    getProfile();
+  }, []);
+
+  function getProfile() {
+    const profileValue = JSON.parse(localStorage.getItem("profile"));
+    if (profileValue) {
+      setProfile(profileValue);
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("profile");
+    history.replace("/");
+    history.go(0);
+  }
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -50,16 +70,31 @@ function NavBar() {
           <NavLink className="nav-link" to="/upload">
             Upload
           </NavLink>
+
+          <NavLink className="nav-link" to="/member">
+            Member
+          </NavLink>
         </Nav>
 
-        <Nav>
-          <NavLink className="nav-link" to="/register">
-            Register
-          </NavLink>
-          <NavLink className="nav-link" to="/login">
-            Login
-          </NavLink>
-        </Nav>
+        {profile ? (
+          <span className="navbar-text text-white">
+            Welcome {profile.name}
+            <Button className="btn btn-danger ml-2 btn-sm" onClick={logout}>
+              Logout
+            </Button>
+          </span>
+        ) : (
+          <>
+            <Nav>
+              <NavLink className="nav-link" to="/register">
+                Register
+              </NavLink>
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
+            </Nav>
+          </>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );
