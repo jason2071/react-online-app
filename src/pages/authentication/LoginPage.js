@@ -47,8 +47,9 @@ const LoginPage = () => {
       const url = BASE_URL + "/profile";
       const resp = await axios.get(url, headers);
       localStorage.setItem("profile", JSON.stringify(resp.data.data.user));
-      history.go(0);
+      addToast("เข้าสู่ระบบเรียบร้อย", { appearance: "success" });
       history.replace("/");
+      history.go(0);
     } catch (error) {
       addToast(error.response.data.message, { appearance: "error" });
     }
