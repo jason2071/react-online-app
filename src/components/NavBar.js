@@ -58,10 +58,15 @@ function NavBar() {
             Upload
           </NavLink>
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-        </Form>
+
+        <Nav>
+          <NavLink className="nav-link" to="/register">
+            Register
+          </NavLink>
+          <NavLink className="nav-link" to="/login">
+            Login
+          </NavLink>
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
   );

@@ -14,7 +14,9 @@ import HospitalPage from "./pages/hospital/HospitalPage";
 import CategoryPage from "./pages/category/CategoryPage";
 import CreatePage from "./pages/category/CreatePage";
 import EditPage from "./pages/category/EditPage";
-import UploadPage from "./UploadPage";
+import UploadPage from "./pages/UploadPage";
+import LoginPage from "./pages/authen/LoginPage";
+import RegisterPage from "./pages/authen/RegisterPage";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +61,12 @@ function App() {
             </Route>
             <Route path="/upload">
               <UploadPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
             </Route>
             <Route path="/category" render={categoryRouteForm} />
             <Route exact path="/">

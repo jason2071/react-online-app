@@ -3,7 +3,7 @@ import axios from "axios";
 import { Col, Row, Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { BASE_URL } from "./constants";
+import { BASE_URL } from "../constants";
 
 const SUPPORTED_IMAGE_FORMATS = ["image/jpeg", "image/jpg"];
 
