@@ -11,7 +11,11 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-let store = createStore(persistedReducer, applyMiddleware(thunk, logger));
-let persistor = persistStore(store);
 
-export { store, persistor };
+const myStore = () => {
+  let store = createStore(persistedReducer, applyMiddleware(thunk, logger));
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
+
+export default myStore;
