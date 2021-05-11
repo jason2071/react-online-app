@@ -25,6 +25,7 @@ import MemberPage from "./pages/MemberPage";
 import PrivateRoute from "./guard/auth";
 
 import allReducers from "./redux/reducers";
+import CartPage from "./pages/CartPage";
 
 const queryClient = new QueryClient();
 const store = createStore(allReducers, applyMiddleware(thunk, logger));
@@ -56,6 +57,9 @@ function App() {
             <Switch>
               <Route path="/about">
                 <AboutPage />
+              </Route>
+              <Route path="/cart">
+                <CartPage />
               </Route>
               <Route path="/user">
                 <UserPage />

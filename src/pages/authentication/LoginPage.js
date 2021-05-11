@@ -22,7 +22,7 @@ const schema = yup.object().shape({
     .min(3, "Password 3 or more characters"),
 });
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const history = useHistory();
   const { addToast } = useToasts();
   const dispatch = useDispatch();

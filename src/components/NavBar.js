@@ -1,31 +1,32 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../assets/logo.svg";
 import { updateProfile, updateToken } from "../redux/actions/profile.action";
-function NavBar(props) {
+
+function NavBar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const profileRedux = useSelector((state) => state.profileReducer.profile);
 
-  React.useEffect(() => {
-    getProfile();
-  }, []);
-
-  function getProfile() {
+  const getProfile = useCallback(() => {
     const profileValue = JSON.parse(localStorage.getItem("profile"));
     if (profileValue) {
       dispatch(updateProfile(profileValue));
     }
-  }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("profile");
-
     dispatch(updateProfile(null));
     dispatch(updateToken(null));
+    history.go(0);
   }
 
   return (
@@ -53,6 +54,10 @@ function NavBar(props) {
           </NavLink>
           <NavLink className="nav-link" to="/about">
             About
+          </NavLink>
+
+          <NavLink className="nav-link" to="/cart">
+            Cart
           </NavLink>
 
           <NavDropdown
