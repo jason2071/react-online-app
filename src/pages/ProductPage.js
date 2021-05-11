@@ -3,16 +3,21 @@ import axios from "axios";
 import { format } from "date-fns";
 import { th } from "date-fns/locale";
 import { Table, Badge, Image, Spinner, Alert } from "react-bootstrap";
-import { BsEyeFill } from "react-icons/bs";
+import { BsEyeFill, BsFillBucketFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BASE_URL } from "../constants";
 import { Link } from "react-router-dom";
+
+import { updateCart } from "../redux/actions/cart.action";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const cancelToken = useRef(null);
+  const dispatch = useDispatch();
+  const cartRedux = useSelector((state) => state.cartReducer);
 
   useEffect(() => {
     cancelToken.current = axios.CancelToken.source();
@@ -43,6 +48,17 @@ function ProductPage() {
     }
   }
 
+  function _updateCart(p) {
+    const product = {
+      id: p.id,
+      name: p.title,
+      price: p.view,
+      qty: 1,
+    };
+
+    dispatch(updateCart({ product, cart: cartRedux.cart }));
+  }
+
   function _renderItem(product) {
     return (
       <tr key={`product-${product.id}`}>
@@ -62,10 +78,16 @@ function ProductPage() {
             width={100}
           />
         </td>
-        <td className="text-center">
+        <td>
           <Link to={`/detail/${product.id}/title/${product.title}`}>
             <BsEyeFill />
           </Link>
+          <button
+            className="btn btn-outline-success ml-2"
+            onClick={() => _updateCart(product)}
+          >
+            <BsFillBucketFill />
+          </button>
         </td>
       </tr>
     );

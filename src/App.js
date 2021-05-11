@@ -2,11 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastProvider } from "react-toast-notifications";
-import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import logger from "redux-logger";
-
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import UserPage from "./pages/UserPage";
@@ -23,12 +19,11 @@ import LoginPage from "./pages/authentication/LoginPage";
 import RegisterPage from "./pages/authentication/RegisterPage";
 import MemberPage from "./pages/MemberPage";
 import PrivateRoute from "./guard/auth";
-
-import allReducers from "./redux/reducers";
 import CartPage from "./pages/CartPage";
+import { store, persistor } from "./redux/configureStore";
+import { PersistGate } from "redux-persist/integration/react";
 
 const queryClient = new QueryClient();
-const store = createStore(allReducers, applyMiddleware(thunk, logger));
 
 function categoryRouteForm({ match: { url } }) {
   return (
@@ -49,54 +44,56 @@ function categoryRouteForm({ match: { url } }) {
 function App() {
   return (
     <Provider store={store}>
-      <ToastProvider autoDismiss autoDismissTimeout={6000}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <NavBar />
+      <PersistGate loading={null} persistor={persistor}>
+        <ToastProvider autoDismiss autoDismissTimeout={6000}>
+          <QueryClientProvider client={queryClient}>
+            <Router>
+              <NavBar />
 
-            <Switch>
-              <Route path="/about">
-                <AboutPage />
-              </Route>
-              <Route path="/cart">
-                <CartPage />
-              </Route>
-              <Route path="/user">
-                <UserPage />
-              </Route>
-              <Route path="/product">
-                <ProductPage />
-              </Route>
-              <Route path="/detail/:id/title/:title">
-                <DetailPage />
-              </Route>
-              <Route path="/hospital">
-                <HospitalPage />
-              </Route>
-              <Route path="/upload">
-                <UploadPage />
-              </Route>
-              <Route path="/login">
-                <LoginPage />
-              </Route>
-              <Route path="/register">
-                <RegisterPage />
-              </Route>
+              <Switch>
+                <Route path="/about">
+                  <AboutPage />
+                </Route>
+                <Route path="/cart">
+                  <CartPage />
+                </Route>
+                <Route path="/user">
+                  <UserPage />
+                </Route>
+                <Route path="/product">
+                  <ProductPage />
+                </Route>
+                <Route path="/detail/:id/title/:title">
+                  <DetailPage />
+                </Route>
+                <Route path="/hospital">
+                  <HospitalPage />
+                </Route>
+                <Route path="/upload">
+                  <UploadPage />
+                </Route>
+                <Route path="/login">
+                  <LoginPage />
+                </Route>
+                <Route path="/register">
+                  <RegisterPage />
+                </Route>
 
-              <PrivateRoute path="/member">
-                <MemberPage />
-              </PrivateRoute>
+                <PrivateRoute path="/member">
+                  <MemberPage />
+                </PrivateRoute>
 
-              <Route path="/category" render={categoryRouteForm} />
-              <Route exact path="/">
-                <HomePage />
-              </Route>
-            </Switch>
+                <Route path="/category" render={categoryRouteForm} />
+                <Route exact path="/">
+                  <HomePage />
+                </Route>
+              </Switch>
 
-            <Footer />
-          </Router>
-        </QueryClientProvider>
-      </ToastProvider>
+              <Footer />
+            </Router>
+          </QueryClientProvider>
+        </ToastProvider>
+      </PersistGate>
     </Provider>
   );
 }

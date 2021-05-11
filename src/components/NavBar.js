@@ -9,6 +9,7 @@ function NavBar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const profileRedux = useSelector((state) => state.profileReducer.profile);
+  const cartRedux = useSelector((state) => state.cartReducer);
 
   const getProfile = useCallback(() => {
     const profileValue = JSON.parse(localStorage.getItem("profile"));
@@ -57,7 +58,7 @@ function NavBar() {
           </NavLink>
 
           <NavLink className="nav-link" to="/cart">
-            Cart
+            Cart {cartRedux.total}
           </NavLink>
 
           <NavDropdown
