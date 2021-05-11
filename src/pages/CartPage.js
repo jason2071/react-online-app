@@ -44,9 +44,12 @@ function CartPage() {
       <div className="row  mt-4">
         <div className="col-md">
           <h2>Cart</h2>
-          <button className="btn btn-danger btm-sm mb-3" onClick={_clearCart}>
-            Clear Cart
-          </button>
+          {cartRedux.length > 0 && (
+            <button className="btn btn-danger btm-sm mb-3" onClick={_clearCart}>
+              Clear Cart
+            </button>
+          )}
+
           <Table bordered striped hover>
             <thead>
               <tr>
