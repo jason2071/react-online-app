@@ -8,6 +8,9 @@ import { BASE_URL, headers } from "../../constants";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
+import { useDispatch } from "react-redux";
+import { updateToken, updateProfile } from "../../redux/actions/profile.action";
+
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -22,6 +25,7 @@ const schema = yup.object().shape({
 const LoginPage = (props) => {
   const history = useHistory();
   const { addToast } = useToasts();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -37,7 +41,7 @@ const LoginPage = (props) => {
       const resp = await axios.post(url, data, headers);
       localStorage.setItem("token", JSON.stringify(resp.data));
 
-      // props.saveToken(resp);
+      dispatch(updateToken(resp.data));
 
       getProfile(resp.data);
     } catch (error) {
@@ -52,7 +56,7 @@ const LoginPage = (props) => {
       const resp = await axios.get(url, headers);
       localStorage.setItem("profile", JSON.stringify(resp.data.data.user));
 
-      // props.saveProfile(resp.data.data.user);
+      dispatch(updateProfile(resp.data.data.user));
 
       addToast("เข้าสู่ระบบเรียบร้อย", { appearance: "success" });
       history.replace("/");
