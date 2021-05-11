@@ -1,9 +1,11 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { numberWithCommas } from "../utils/number.helper";
+import { clearCart } from "../redux/actions/cart.action";
 
 function CartPage() {
+  const dispatch = useDispatch();
   const [sumTotal, setSumTotal] = React.useState(0);
   const cartRedux = useSelector((state) => state.cartReducer).cart;
 
@@ -33,11 +35,18 @@ function CartPage() {
     );
   }
 
+  function _clearCart() {
+    dispatch(clearCart());
+  }
+
   return (
     <div className="container">
       <div className="row  mt-4">
         <div className="col-md">
           <h2>Cart</h2>
+          <button className="btn btn-danger btm-sm mb-3" onClick={_clearCart}>
+            Clear Cart
+          </button>
           <Table bordered striped hover>
             <thead>
               <tr>

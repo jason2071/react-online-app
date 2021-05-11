@@ -1,4 +1,4 @@
-import { CART_DATA } from "./type";
+import { CART_DATA, CLEAR_CART } from "./type";
 
 export const updateCart = ({ product = {}, cart = [] }) => {
   let exists = false;
@@ -17,4 +17,10 @@ export const updateCart = ({ product = {}, cart = [] }) => {
   const total = cart.reduce((totalQty, product) => totalQty + product.qty, 0);
 
   return { type: CART_DATA, payload: { cart, total } };
+};
+
+export const clearCart = () => {
+  const cart = [];
+  const total = 0;
+  return { type: CLEAR_CART, payload: { cart, total } };
 };

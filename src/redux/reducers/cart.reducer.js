@@ -1,4 +1,4 @@
-import { CART_DATA } from "../actions/type";
+import { CART_DATA, CLEAR_CART } from "../actions/type";
 
 const initialState = {
   cart: [],
@@ -10,6 +10,12 @@ export default function profile(state = initialState, action) {
 
   switch (type) {
     case CART_DATA:
+      return {
+        ...state,
+        cart: payload.cart,
+        total: payload.total,
+      };
+    case CLEAR_CART:
       return {
         ...state,
         cart: payload.cart,
