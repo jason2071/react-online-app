@@ -1,6 +1,6 @@
 import { CART_DATA, CLEAR_CART } from "./type";
 
-export const updateCart = ({ product = {}, cart = [] }) => {
+export const updateCart = ({ product = {}, cart = [] }) => (dispatch) => {
   let exists = false;
 
   for (const c of cart) {
@@ -16,11 +16,11 @@ export const updateCart = ({ product = {}, cart = [] }) => {
 
   const total = cart.reduce((totalQty, product) => totalQty + product.qty, 0);
 
-  return { type: CART_DATA, payload: { cart, total } };
+  dispatch({ type: CART_DATA, payload: { cart, total } });
 };
 
-export const clearCart = () => {
+export const clearCart = () => (dispatch) => {
   const cart = [];
   const total = 0;
-  return { type: CLEAR_CART, payload: { cart, total } };
+  dispatch({ type: CLEAR_CART, payload: { cart, total } });
 };
