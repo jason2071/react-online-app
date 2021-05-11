@@ -20,9 +20,10 @@ import RegisterPage from "./pages/authentication/RegisterPage";
 import MemberPage from "./pages/MemberPage";
 import PrivateRoute from "./guard/auth";
 import CartPage from "./pages/CartPage";
-import { store, persistor } from "./redux/configureStore";
+import configureStore from "./redux/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
 
+const { store, persistor } = configureStore();
 const queryClient = new QueryClient();
 
 function categoryRouteForm({ match: { url } }) {
