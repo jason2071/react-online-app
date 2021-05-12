@@ -22,6 +22,7 @@ import PrivateRoute from "./guard/auth";
 import CartPage from "./pages/CartPage";
 import configureStore from "./redux/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
+import ReportPage from "./report/ReportPage";
 
 const { store, persistor } = configureStore();
 const queryClient = new QueryClient();
@@ -78,6 +79,10 @@ function App() {
                 </Route>
                 <Route path="/register">
                   <RegisterPage />
+                </Route>
+
+                <Route path="/report">
+                  <ReportPage />
                 </Route>
 
                 <PrivateRoute path="/member">

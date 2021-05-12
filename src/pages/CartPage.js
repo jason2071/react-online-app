@@ -3,9 +3,11 @@ import { Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { numberWithCommas } from "../utils/number.helper";
 import { clearCart } from "../redux/actions/cart.action";
+import { useHistory } from "react-router-dom";
 
 function CartPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [sumTotal, setSumTotal] = React.useState(0);
   const cartRedux = useSelector((state) => state.cartReducer).cart;
 
@@ -45,8 +47,17 @@ function CartPage() {
         <div className="col-md">
           <h2>Cart</h2>
           {cartRedux.length > 0 && (
-            <button className="btn btn-danger btm-sm mb-3" onClick={_clearCart}>
+            <button className="btn btn-danger btn-sm mb-3" onClick={_clearCart}>
               Clear Cart
+            </button>
+          )}
+
+          {cartRedux.length > 0 && (
+            <button
+              className="btn btn-success btn-sm mb-3 ml-4"
+              onClick={() => history.push("/report")}
+            >
+              Report PDF
             </button>
           )}
 
