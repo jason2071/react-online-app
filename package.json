@@ -31,7 +31,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "next start -p $PORT",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -54,9 +54,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": "14.4.0",
-    "npm": "7.5.2"
   }
 }
